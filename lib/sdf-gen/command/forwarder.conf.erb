@@ -39,6 +39,10 @@ server {
   location = /conjur/authn {
     internal;
     proxy_pass_request_headers off;
+    <% if global.conjur.certificate_path %>
+    proxy_ssl_verify on;
+    proxy_ssl_trusted_certificate <%= global.conjur.certificate_path %>;
+    <% end %>
     proxy_pass 'https://conjur/api/authn/users/<%= CGI.escape authn_login %>/authenticate';
   }
 }

@@ -2,22 +2,11 @@ require 'sdf-gen/cli'
 
 class SDFGen::Command::Forwarder < SDFGen::Command
 
-  desc 'Count the number of forwarders in the config'
-  arg_name "config"
-  command :"forwarder-count" do |c|
-    c.action do |global_options,options,args|
-      config_file = require_arg(args, "config")
-      assert_empty args
-      config = load_config(config_file)
-      puts(config.forward ? config.forward.count : 0)
-    end
-  end
-
   desc 'Generate a forwarder'
   arg_name "config"
   command :forwarder do |c|
-    c.desc "Index of the forwarder to generate (if there are multiple)"
-    c.flag [:i, "forwarder-index"]
+    c.desc "Id of the forwarder to generate (if there are multiple)"
+    c.flag [:i, "forwarder-id"]
     
     c.desc "Conjur authentication identifier"
     c.flag [:l, :"authn-login"]
@@ -32,21 +21,24 @@ class SDFGen::Command::Forwarder < SDFGen::Command
       config = load_config(config_file)
       
       forward = config.forward or raise "No 'forward' settings found in #{config_file}"
-      
-      result = if forward.is_a?(Hash)
-        generate_forwarder forward, options
-      elsif forward.length == 1
-        generate_forwarder forward[1], options
-      else 
-        index = options[:i] or raise "--forwarder-index is required when multiple forwarders are defined"
-        generate_forwarder forward[index.to_i-1], options
-      end
-      puts result
+      forward = select_forward forward, options[:i]
+      forward.global = Hashr.new(config.global)
+      puts generate_forwarder(forward, options)
     end
   end
   
-  def self.generate_forwarder forward, options
-    forward = Hashr.new(forward)
+  def self.select_forward forward, id
+    result = if id
+      forward[id] or raise "Forwarder #{id} not found"
+    elsif forward.length == 1
+      forward.values.first
+    else
+      raise "Forwarder id is required when multiple forwarders are defined"
+    end
+    Hashr.new(result)
+  end
+  
+  def self.generate_forwarder forward, options, id = nil
     forward.authn_login = options[:l] or raise "authn-login is missing"
     forward.authn_api_key = options[:k] or raise "authn-api-key is missing"
     process_template(File.expand_path("../forwarder.conf.erb", __FILE__), forward)

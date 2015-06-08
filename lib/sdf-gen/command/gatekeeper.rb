@@ -14,6 +14,7 @@ class SDFGen::Command::Forwarder < SDFGen::Command
       gatekeeper = config.gatekeeper or raise "No 'gatekeeper' settings found in #{config_file}"
       
       gatekeeper = Hashr.new(gatekeeper)
+      gatekeeper.global = Hashr.new(config.global)
       puts process_template(File.expand_path("../gatekeeper.conf.erb", __FILE__), gatekeeper)
     end
   end
