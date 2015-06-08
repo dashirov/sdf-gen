@@ -12,4 +12,3 @@ gatekeeper:
 forward:
   eureka:
     listen: 127.0.0.2
-    service: https://eureka

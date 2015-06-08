@@ -31,11 +31,14 @@ class SDFGen::Command::Forwarder < SDFGen::Command
     result = if id
       forward[id] or raise "Forwarder #{id} not found"
     elsif forward.length == 1
+      id = forward.keys.first
       forward.values.first
     else
       raise "Forwarder id is required when multiple forwarders are defined"
     end
-    Hashr.new(result)
+    Hashr.new(result).tap do |f|
+      f.id = id
+    end
   end
   
   def self.generate_forwarder forward, options, id = nil
