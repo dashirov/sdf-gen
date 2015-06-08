@@ -37,7 +37,7 @@ module SDFGen
   
     subcommand_option_handling :normal
     
-    program_desc 'SDF portal generator'
+    program_desc 'SDF Nginx configuration generator'
     
     version SDFGen::VERSION
     
