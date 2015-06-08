@@ -82,7 +82,6 @@ GLOBAL OPTIONS
 
 COMMANDS
     forwarder       - Generate a forwarder
-    forwarder-count - Count the number of forwarders in the config
     gatekeeper      - Generate a gatekeeper
     global          - Generate the global Nginx config file
     help            - Shows a list of commands or help for one command
