@@ -8,10 +8,10 @@ class SDFGen::Command::Forwarder < SDFGen::Command
     c.desc "Id of the forwarder to generate (if there are multiple)"
     c.flag [:i, "forwarder-id"]
     
-    c.desc "Conjur authentication identifier"
+    c.desc "Conjur authentication identifier. If unspecified, the string @CONJUR_AUTHN_LOGIN@ is placed in the config file."
     c.flag [:l, :"authn-login"]
 
-    c.desc "Conjur authentication API key"
+    c.desc "Conjur authentication API key. If unspecified, the string @CONJUR_AUTHN_API_KEY@ is placed in the config file."
     c.flag [:k, :"authn-api-key"]
     
     c.action do |global_options,options,args|
@@ -42,8 +42,13 @@ class SDFGen::Command::Forwarder < SDFGen::Command
   end
   
   def self.generate_forwarder forward, options, id = nil
-    forward.authn_login = options[:l] or raise "authn-login is missing"
-    forward.authn_api_key = options[:k] or raise "authn-api-key is missing"
+    login = options[:l]
+    forward.authn_login = if login
+      CGI.escape login
+    else
+      "@CONJUR_AUTHN_LOGIN@"
+    end
+    forward.authn_api_key = options[:k] || "@CONJUR_AUTHN_API_KEY@"
     process_template(File.expand_path("../forwarder.conf.erb", __FILE__), forward)
   end
 end

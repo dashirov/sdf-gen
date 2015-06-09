@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Replace the strings CONJUR_AUTHN_LOGIN and CONJUR_AUTHN_API_KEY into the forwarder config
+
+
+nginx -g daemon off; error_log /dev/stderr info;
