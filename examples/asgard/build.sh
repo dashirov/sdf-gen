@@ -5,9 +5,9 @@ mkdir -p generated/eureka
 
 generate="bundle exec ../../bin/sdf-gen"
 
-$generate global asgard.yml > generated/asgard/global.conf
+$generate global     asgard.yml > generated/asgard/global.conf
 $generate gatekeeper asgard.yml > generated/asgard/gate.conf
-$generate forwarder -l host/asgard-01 -k the-api-key asgard.yml > generated/asgard/forward-eureka.conf
+$generate forwarder  asgard.yml > generated/asgard/forward-eureka.conf
 
-$generate global eureka.yml > generated/eureka/global.conf
+$generate global     eureka.yml > generated/eureka/global.conf
 $generate gatekeeper eureka.yml > generated/eureka/gate.conf

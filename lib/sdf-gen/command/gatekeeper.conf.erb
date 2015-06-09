@@ -36,7 +36,7 @@ server {
     proxy_ssl_verify on;
     proxy_ssl_trusted_certificate <%= global.conjur.certificate_path %>;
     <% end %>
-    proxy_pass https://conjur/authz/<%= conjur_account %>/resources/<%= conjur_resource %>/?check=true&privilege=$conjur_privilege;
+    proxy_pass https://conjur/api/authz/<%= conjur_account %>/resources/<%= conjur_resource %>/?check=true&privilege=$conjur_privilege;
     proxy_intercept_errors on;
     proxy_next_upstream error timeout http_403;
     proxy_pass_request_body off;

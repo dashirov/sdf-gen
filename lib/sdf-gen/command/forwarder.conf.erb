@@ -26,7 +26,7 @@ server {
 
         if response.status >= 300 then
           -- just error out, will cause the request to fail with 500, which seems appropriate
-          error('authn request failed with ' .. response.status)
+          error('[conjur:forwarder] authn request failed with ' .. response.status)
         end
 
         -- base64 the body and turn it into a header we can use
@@ -47,6 +47,6 @@ server {
     proxy_ssl_verify on;
     proxy_ssl_trusted_certificate <%= global.conjur.certificate_path %>;
     <% end %>
-    proxy_pass 'https://conjur/api/authn/users/<%= CGI.escape authn_login %>/authenticate';
+    proxy_pass 'https://conjur/api/authn/users/<%= authn_login %>/authenticate';
   }
 }

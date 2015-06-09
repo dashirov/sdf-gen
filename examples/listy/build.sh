@@ -1,17 +1,21 @@
 #!/bin/bash
 
-docker run -v $PWD/webapp/sdf.yml:/sdf.yml sdf-gen global sdf.yml > webapp/gatekeeper/nginx/conf/global.conf
-docker run -v $PWD/webapp/sdf.yml:/sdf.yml sdf-gen global sdf.yml > webapp/backend/nginx/conf/global.conf
-docker run -v $PWD/webapp/sdf.yml:/sdf.yml sdf-gen gatekeeper sdf.yml > webapp/gatekeeper/nginx/conf/gate.conf
-docker run -v $PWD/webapp/sdf.yml:/sdf.yml sdf-gen forwarder -l @host_id@ -k @api-key@ sdf.yml > webapp/backend/nginx/conf/forward.conf
+generate="bundle exec ../../../bin/sdf-gen"
 
 cd webapp
+
+$generate global     sdf.yml > gatekeeper/nginx/conf/global.conf
+$generate gatekeeper sdf.yml > gatekeeper/nginx/conf/gate.conf
+
+$generate global    sdf.yml > backend/nginx/conf/global.conf
+$generate forwarder sdf.yml > backend/nginx/conf/forward.conf
+
 docker-compose build
 cd -
 
-docker run -v $PWD/backend/sdf.yml:/sdf.yml sdf-gen global sdf.yml > backend/gatekeeper/nginx/conf/global.conf
-docker run -v $PWD/backend/sdf.yml:/sdf.yml sdf-gen gatekeeper sdf.yml > backend/gatekeeper/nginx/conf/gate.conf
-
 cd backend
+$generate global     sdf.yml > gatekeeper/nginx/conf/global.conf
+$generate gatekeeper sdf.yml > gatekeeper/nginx/conf/gate.conf
+
 docker-compose build
 cd -
