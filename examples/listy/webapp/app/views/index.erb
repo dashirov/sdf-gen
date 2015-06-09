@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+  <title>Hello, SDF</title>
+</head>
+  <body>
+    <div class="list">
+      <ul>
+        <% items.each do |item| %>
+            <li><%= item %> </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="form">
+      <form action="/" method="post">
+        <label for="name">Add Item</label>
+        <input type="text" name="name"/>
+        <button type="submit">Add</button>
+      </form>
+    </div>
+  </body>
+</html>
