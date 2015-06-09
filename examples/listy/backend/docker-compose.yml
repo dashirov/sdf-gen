@@ -7,4 +7,4 @@ gatekeeper:
   links:
   - service:service
   ports:
-   - "80:80"
+   - "8085:80"

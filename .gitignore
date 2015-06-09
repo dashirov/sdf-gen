@@ -1,3 +1,4 @@
+webapp-*.json
 .idea
 nohup.out
 policy*.json

@@ -4,7 +4,7 @@
 lua_shared_dict conjur 16k;
 
 upstream forward-<%= id %> {
-  server <%= id %>;
+  server <%= service || id %>;
 }
 
 server {

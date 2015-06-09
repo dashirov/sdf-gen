@@ -4,7 +4,7 @@
 lua_shared_dict conjur 16k;
 
 upstream forward-backend {
-  server backend;
+  server localhost:8085;
 }
 
 server {

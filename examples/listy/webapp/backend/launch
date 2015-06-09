@@ -1,6 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 
 # Replace the strings CONJUR_AUTHN_LOGIN and CONJUR_AUTHN_API_KEY into the forwarder config
 
+login=$CONJUR_AUTHN_LOGIN
+api_key=$CONJUR_AUTHN_API_KEY
 
-nginx -g daemon off; error_log /dev/stderr info;
+cd /opt/openresty/nginx/conf/
+
+cat forward.conf.template | sed s/@CONJUR_AUTHN_LOGIN@/$login/ | sed s/@CONJUR_AUTHN_API_KEY@/$api_key/ > forward.conf
+
+cd -
+
+nginx -g "daemon off; error_log /dev/stderr info;"
