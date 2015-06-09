@@ -1,0 +1,14 @@
+backend:
+  build: backend
+service:
+  build: service
+  expose:
+  - 80
+  links:
+  - backend:backend
+gatekeeper:
+  build: gatekeeper
+  links:
+  - service:service
+  ports:
+   - "80:80"

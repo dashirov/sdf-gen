@@ -1,0 +1,13 @@
+global:
+  conjur:
+    hostname: conjur
+
+gatekeeper:
+  port: 80
+  service: service:80
+  conjur_account:  kegdev
+  conjur_resource: webservice/kgilpin@spudling-2.local/sdf-gen-listy-1.0/webapp
+
+forward:
+  backend:
+    listen: localhost
