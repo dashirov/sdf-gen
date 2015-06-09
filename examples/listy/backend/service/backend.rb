@@ -2,6 +2,10 @@
 require 'sinatra'
 require 'sqlite3'
 require 'json'
+
+# We need this to work in boot2docker
+set :bind, '0.0.0.0'
+
 helpers do
   def db
     @db ||= SQLite3::Database.new('list.db').tap do |db|

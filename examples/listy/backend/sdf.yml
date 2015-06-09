@@ -1,9 +1,9 @@
 global:
   conjur:
-    hostname: kegdev.conjur.itd.conjur.net
+    hostname: 54.172.166.125
 
 gatekeeper:
   port: 80
-  service: service:80
-  conjur_account:  kegdev
-  conjur_resource: webservice/kgilpin@spudling-2.local/sdf-gen-listy-1.0/webapp
+  service: service:4567
+  conjur_account:  ci
+  conjur_resource: webservice/jon@noether/sdf-gen-listy-1.0/backend

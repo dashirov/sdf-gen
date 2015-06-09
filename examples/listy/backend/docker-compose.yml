@@ -1,7 +1,9 @@
 service:
   build: service
   expose:
-  - 80
+   - 4567
+  ports:
+   - "8088:4567"
 gatekeeper:
   build: gatekeeper
   links:
