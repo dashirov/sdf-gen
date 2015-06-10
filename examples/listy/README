@@ -2,6 +2,8 @@
 
 conjur policy load -c policy-sandbox.json policy.rb
 
+./build.sh
+
 policy=$(cat policy-sandbox.json | jsonfield policy)
 
 conjur host create $policy/webapp-01 | tee webapp-01.json
