@@ -98,3 +98,6 @@ $ docker run \
 	webapp_gatekeeper
 ```
 
+If you are using `boot2docker`, expose the backend port on the host:
+
+VBoxManage controlvm boot2docker-vm natpf1 "expose-listy-backend,tcp,127.0.0.1,8085,,8085"
