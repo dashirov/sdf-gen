@@ -37,6 +37,5 @@ gatekeeper:
 
 forward:
   backend:
-    listen: 80
     service: backend:80
 SDF
