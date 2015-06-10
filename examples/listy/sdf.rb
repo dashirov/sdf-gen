@@ -37,6 +37,6 @@ gatekeeper:
 
 forward:
   backend:
-    listen: localhost
-    service: localhost:8085
+    listen: 80
+    service: backend:80
 SDF

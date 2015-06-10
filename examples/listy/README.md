@@ -77,7 +77,7 @@ Run the identity container:
 ```
 $ docker run \                                                 
    -d \       
-   --name webapp_backend \
+   --name webapp_identity \
    -e CONJUR_AUTHN_LOGIN=host/$host_id \
    -e CONJUR_AUTHN_API_KEY=$host_api_key \
    webapp_identity

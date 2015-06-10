@@ -2,10 +2,13 @@ backend:
   build: backend
   external_links:
   - webapp_identity:identity
+  - backend_gatekeeper_1:backend
 service:
   build: service
   links:
-  - backend:backend
+   - backend:backend
+  expose:
+   - 80
 gatekeeper:
   build: gatekeeper
   links:
