@@ -15,26 +15,27 @@ if [ -z "$api_key" ]; then
   exit 1; 
 fi
 
-function urlencode() {
-    local data
-    if [[ $# != 1 ]]; then
-        echo "Usage: $0 string-to-urlencode"
-        return 1
-    fi
-    data="$(curl -s -o /dev/null -w %{url_effective} --get --data-urlencode "$1" "")"
-    if [[ $? != 3 ]]; then
-        echo "Unexpected error" 1>&2
-        return 2
-    fi
-    echo "${data##/?}"
-    return 0
+# http://stackoverflow.com/a/10660730
+urlencode() {
+  local string="${1}"
+  local strlen=${#string}
+  local encoded=""
+
+  for (( pos=0 ; pos<strlen ; pos++ )); do
+     c=${string:$pos:1}
+     case "$c" in
+        [-_.~a-zA-Z0-9] ) o="${c}" ;;
+        * )               printf -v o '%%%02x' "'$c"
+     esac
+     encoded+="${o}"
+  done
+  echo "${encoded}"    # You can either set a return variable (FASTER) 
+  REPLY="${encoded}"   #+or echo the result (EASIER)... or both... :p
 }
 
-login=$(urlencode $login)
-
 cd /opt/openresty/nginx/conf/
-
-cat forward.conf.template | sed s/@CONJUR_AUTHN_LOGIN@/$login/ | sed s/@CONJUR_AUTHN_API_KEY@/$api_key/ > forward.conf
+login_encoded=$(urlencode "$login")
+cat forward.conf.template | sed s/@CONJUR_AUTHN_LOGIN@/$login_encoded/ | sed s/@CONJUR_AUTHN_API_KEY@/$api_key/ > forward.conf
 
 cd -
 
