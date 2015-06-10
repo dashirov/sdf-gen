@@ -11,6 +11,8 @@ sdf-gen global    sdf.yml > backend/nginx/conf/global.conf
 sdf-gen forwarder sdf.yml > backend/nginx/conf/forward.conf.template
 
 docker-compose build
+
+docker build -t webapp_identity identity
 cd -
 
 cd backend

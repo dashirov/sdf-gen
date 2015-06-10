@@ -66,38 +66,44 @@ $ cd $project_dir/webapp
 $ docker-compose build
 ```
 
-Run the forwarder:
+Build the identity container:
 
 ```
-$ docker run \
-	-d \
+$ docker build -t webapp_identity identity
+```
+
+Run the identity container:
+
+```
+$ docker run \                                                 
+   -d \       
    --name webapp_backend \
-	-e CONJUR_AUTHN_LOGIN=host/$host_id \
-	-e CONJUR_AUTHN_API_KEY=$host_api_key \
-	webapp_backend
-```
-
-Run the service:
-
-```
-$ docker run \
-	-d \
-	--name webapp_service \
-	--link webapp_backend:backend \
-	webapp_service
-```
-
-Run the gatekeeper:
-
-```
-$ docker run \
-	-d \
-	--name webapp_gatekeeper \
-	--link webapp_service:service \
-	-p 8080:80 \
-	webapp_gatekeeper
+   -e CONJUR_AUTHN_LOGIN=host/$host_id \
+   -e CONJUR_AUTHN_API_KEY=$host_api_key \
+   webapp_identity
 ```
 
 If you are using `boot2docker`, expose the backend port on the host:
 
-VBoxManage controlvm boot2docker-vm natpf1 "expose-listy-backend,tcp,127.0.0.1,8085,,8085"
+```
+$ VBoxManage controlvm boot2docker-vm natpf1 "expose-listy-backend,tcp,127.0.0.1,8085,,8085"
+```
+
+Now run the webapp:
+
+```
+$ docker-compose up
+```
+
+Start a `conjur proxy` to the webapp:
+
+```
+$ conjur proxy -p 5001 http://$(boot2docker ip):8080 &
+```
+
+`curl` to the webapp:
+
+```
+$ curl localhost:5001
+```
+

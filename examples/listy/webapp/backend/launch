@@ -2,16 +2,16 @@
 
 # Replace the strings CONJUR_AUTHN_LOGIN and CONJUR_AUTHN_API_KEY into the forwarder config
 
-login=$CONJUR_AUTHN_LOGIN
-api_key=$CONJUR_AUTHN_API_KEY
+login=$IDENTITY_ENV_CONJUR_AUTHN_LOGIN
+api_key=$IDENTITY_ENV_CONJUR_AUTHN_API_KEY
 
 if [ -z "$login" ]; then 
-  echo "Missing CONJUR_AUTHN_LOGIN"
+  echo "Missing CONJUR_AUTHN_LOGIN from linked 'identity' container"
   exit 1; 
 fi
 
 if [ -z "$api_key" ]; then 
-  echo "Missing CONJUR_AUTHN_API_KEY"
+  echo "Missing CONJUR_AUTHN_API_KEY from linked 'identity' container"
   exit 1; 
 fi
 

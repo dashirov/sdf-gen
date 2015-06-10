@@ -1,5 +1,7 @@
 backend:
   build: backend
+  external_links:
+  - webapp_identity:identity
 service:
   build: service
   links:
