@@ -31,7 +31,7 @@ global:
 
 gatekeeper:
   port: 80
-  service: service:80
+  service: service:4567
   conjur_account:  #{Conjur.configuration.account}
   conjur_resource: webservice/#{policy_id}/backend
 

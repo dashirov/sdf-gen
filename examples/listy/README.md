@@ -87,4 +87,14 @@ $ docker run \
 	webapp_service
 ```
 
+Run the gatekeeper:
+
+```
+$ docker run \
+	-d \
+	--name webapp_gatekeeper \
+	--link webapp_service:service \
+	-p 8080:80 \
+	webapp_gatekeeper
+```
 

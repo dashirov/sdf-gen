@@ -4,6 +4,8 @@ require 'rest-client'
 
 # We need this to work in boot2docker
 set :bind, '0.0.0.0'
+# http://stackoverflow.com/questions/17334734/how-do-i-get-sinatra-to-work-with-httpclient
+set :server, 'webrick'
 
 helpers do
   def items
