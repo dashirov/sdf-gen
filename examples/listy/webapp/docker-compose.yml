@@ -2,8 +2,6 @@ backend:
   build: backend
 service:
   build: service
-  expose:
-  - 80
   links:
   - backend:backend
 gatekeeper:

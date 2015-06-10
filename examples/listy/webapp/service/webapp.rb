@@ -1,6 +1,10 @@
 #!/usr/bin/env ruby
 require 'sinatra'
 require 'rest-client'
+
+# We need this to work in boot2docker
+set :bind, '0.0.0.0'
+
 helpers do
   def items
     # Docker link will have added an appropriate entry to
