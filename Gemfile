@@ -4,3 +4,4 @@ source 'https://rubygems.org'
 
 # Specify your gem's dependencies in sdf-gen.gemspec
 gemspec
+gem 'sinatra'

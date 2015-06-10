@@ -12,6 +12,8 @@ server {
 
   location / {
     proxy_pass http://forward-<%= id %>;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
 
     rewrite_by_lua "
       local token = ngx.shared.conjur:get('conjur_host_token')
