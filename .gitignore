@@ -1,7 +1,7 @@
 sdf.yml
-nginx/conf/gate.conf
-nginx/conf/global.conf
-nginx/conf/forward.conf.template
+examples/listy/**/nginx/conf/gate.conf
+examples/listy/**/nginx/conf/global.conf
+examples/listy/**/nginx/conf/forward.conf.template
 webapp-*.json
 .idea
 nohup.out
