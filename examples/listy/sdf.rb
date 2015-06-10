@@ -27,7 +27,7 @@ SDF
 File.write File.expand_path('../webapp/sdf.yml', __FILE__), <<SDF
 global:
   conjur:
-hostname: #{hostname}
+    hostname: #{hostname}
 
 gatekeeper:
   port: 80
