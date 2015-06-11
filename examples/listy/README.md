@@ -23,13 +23,22 @@ Build the project.
 ./build.sh
 ```
 
+## Run the backend
+
+Start the backend containers as daemons:
+
+```
+$ cd $project_dir/backend
+$ docker-compose up -d
+```
+
 ## Test the Backend
 
 Test the backend using `conjur proxy`:
 
 ```
 $ cd $project_dir/backend
-$ conjur proxy -p 5000 http://$(boot2docker ip):8085 &
+$ conjur proxy -p 5000 http://$(boot2docker ip):8085 2> /dev/null &
 $ curl localhost:5000
 {"list":[]}%                                                                    
 $ curl -X POST localhost:5000 --data name="alice"
@@ -37,14 +46,6 @@ $ curl localhost:5000
 {"list":["alice"]}%     
 ```
 
-# Run the backend
-
-Now that it's tested, stop the backend and restart it as a daemon.
-
-```
-$ docker-compose stop
-$ docker-compose up -d
-```
 
 # Setup the webapp
 
