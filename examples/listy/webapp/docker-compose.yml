@@ -1,4 +1,4 @@
-backend:
+forward2backend:
   build: backend
   external_links:
   - webapp_identity:identity
@@ -6,7 +6,7 @@ backend:
 service:
   build: service
   links:
-   - backend:backend
+   - forward2backend:backend
   expose:
    - 80
 gatekeeper:
