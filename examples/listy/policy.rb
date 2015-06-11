@@ -33,7 +33,7 @@ policy 'sdf-gen-listy-1.1' do
   # User group who can 'use' the webapp.
   # This group can only read.
   group "users" do
-    %w(read create update).each do |privilege|
+    %w(read).each do |privilege|
       can privilege, webapp_service
     end
   end
