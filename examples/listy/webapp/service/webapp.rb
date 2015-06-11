@@ -28,5 +28,6 @@ end
 
 post '/' do
   add_item params[:name]
-  redirect to('/')
+  # This is a stupid hack to make redirects work behind our rather complex proxy set
+  redirect env['HTTP_REFERER']
 end
