@@ -8,7 +8,9 @@ upstream forward-<%= id %> {
 }
 
 server {
+  <% if listen %>
   listen <%= listen %>;
+  <% end %>
 
   location / {
     proxy_pass http://forward-<%= id %>;
