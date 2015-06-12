@@ -153,7 +153,7 @@ $ docker-compose up -d
 Start a `conjur proxy` to the webapp:
 
 ```
-$ nohup conjur proxy -p 5001 http://$hostname:808 2>&1 &
+$ nohup conjur proxy -p 5001 http://$hostname:8080 2>&1 &
 ```
 
 `curl` to the webapp:
