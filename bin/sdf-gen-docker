@@ -1,0 +1,8 @@
+#!/bin/bash
+
+command=$1
+shift
+file=$1
+shift
+docker run --rm -v $PWD/$file:/$file sdf-gen $command $file "$@"
+
